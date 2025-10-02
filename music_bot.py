@@ -12,7 +12,7 @@ load_dotenv()
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents=intents, help_command=None)
 
-# YouTube DL configuration - SIMPLIFIED
+# Updated YouTube DL configuration
 ytdl_format_options = {
     'format': 'bestaudio/best',
     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
@@ -23,7 +23,24 @@ ytdl_format_options = {
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
-    'default_search': 'auto'
+    'default_search': 'auto',
+    
+    # ADD THESE LINES TO BYPASS BOT DETECTION
+    'extract_flat': False,
+    'force_ipv4': True,
+    'geo_bypass': True,
+    'geo_bypass_country': 'US',
+    'geo_bypass_ip_block': None,
+    
+    # Rate limiting to avoid detection
+    'ratelimit': 5000000,  # 5 MB/s
+    'throttled_rate': 1000000,  # 1 MB/s
+    
+    # User agent rotation
+    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    
+    # Cookie handling (optional)
+    'cookiefile': 'cookies.txt'  # If you have cookies file
 }
 
 # SIMPLIFIED FFmpeg options
@@ -473,4 +490,5 @@ try:
     else:
         print("❌ ERROR: No token found in .env file")
 except Exception as e:
+
     print(f"❌ Bot failed to start: {e}")
